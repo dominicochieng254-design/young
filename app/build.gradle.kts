@@ -5,11 +5,7 @@ plugins {
 
 android {
     namespace = "com.stiles.young"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.stiles.young"
@@ -40,6 +36,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.lottie.compose)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

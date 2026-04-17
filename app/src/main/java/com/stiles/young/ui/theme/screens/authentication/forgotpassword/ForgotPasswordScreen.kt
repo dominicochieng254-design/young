@@ -1,5 +1,7 @@
 package com.stiles.young.ui.theme.screens.authentication.forgotpassword
 
+import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,16 +23,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.stiles.young.R
+import com.stiles.young.navigation.ROUTE_LOGIN
 import com.stiles.young.ui.theme.screens.authentication.login.LottieAnimationWidget
 
 @Composable
-fun ForgotPasswordScreen() {
+fun ForgotPasswordScreen(navController: NavHostController = rememberNavController()) {
     var emailInput by remember { mutableStateOf(TextFieldValue("")) }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -74,10 +81,29 @@ fun ForgotPasswordScreen() {
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(
-            onClick = { /* Handle Reset Password */ },
+            onClick = { 
+                if (emailInput.text.isNotEmpty()) {
+                    Toast.makeText(context, "Reset link sent to ${emailInput.text}", Toast.LENGTH_SHORT).show()
+                    navController.navigate(ROUTE_LOGIN)
+                } else {
+                    Toast.makeText(context, "Please enter your email", Toast.LENGTH_SHORT).show()
+                }
+            },
             shape = RoundedCornerShape(32.dp)
         ) {
             Text(text = "RESET PASSWORD")
         }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Text(
+            text = "Back to Login",
+            modifier = Modifier.clickable { 
+                navController.navigate(ROUTE_LOGIN)
+            },
+            color = Color.Blue,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
