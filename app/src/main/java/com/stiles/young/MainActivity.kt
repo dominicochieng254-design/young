@@ -12,8 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.stiles.young.navigation.AppNavHost
 import com.stiles.young.ui.theme.YoungTheme
-import com.stiles.young.ui.theme.screens.authentication.login.LoginScreen
 import com.stiles.young.Greeting as Greeting1
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             YoungTheme{
-                LoginScreen()
+                AppNavHost()
             }
         }
     }
