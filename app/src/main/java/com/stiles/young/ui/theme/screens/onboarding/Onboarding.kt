@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,6 +35,9 @@ import androidx.navigation.NavHostController
 import coil3.compose.AsyncImage
 import com.stiles.young.R
 import com.stiles.young.navigation.ROUTE_LOGIN
+import com.stiles.young.navigation.ROUTE_ONBOARDING
+import com.stiles.young.navigation.ROUTE_SPLASH
+import com.stiles.young.ui.theme.navigation.ROUTES
 import com.stiles.young.ui.theme.screens.authentication.login.LottieAnimationWidget
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -42,8 +46,8 @@ import kotlinx.coroutines.launch
 fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(key1 = true) {
         delay(3000)
-        navController.navigate("onboarding") {
-            popUpTo("splash") { inclusive = true }
+        navController.navigate(ROUTE_ONBOARDING) {
+            popUpTo(ROUTE_SPLASH) { inclusive = true }
         }
     }
     
@@ -61,6 +65,11 @@ fun SplashScreen(navController: NavHostController) {
             contentScale = ContentScale.Crop,
             alpha = 0.5f 
         )
+        OutlinedButton(
+            onClick = {
+                navController.navigate(ROUTES.Home.name)
+            }
+        ){}
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             LottieAnimationWidget(R.raw.king, 300.dp)
@@ -82,7 +91,7 @@ data class OnboardingPage(
 )
 
 @Composable
-fun OnboardingScreen(navController: NavHostController) {
+fun OnboardingScreen(navController: NavHostController, modifier: Modifier) {
     val pages = listOf(
         OnboardingPage(
             "Welcome to Young Tech",
@@ -104,7 +113,7 @@ fun OnboardingScreen(navController: NavHostController) {
     val pagerState = rememberPagerState(pageCount = { pages.size })
     val scope = rememberCoroutineScope()
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
@@ -167,7 +176,7 @@ fun OnboardingScreen(navController: NavHostController) {
                         }
                     } else {
                         navController.navigate(ROUTE_LOGIN) {
-                            popUpTo("onboarding") { inclusive = true }
+                            popUpTo(ROUTE_ONBOARDING) { inclusive = true }
                         }
                     }
                 },

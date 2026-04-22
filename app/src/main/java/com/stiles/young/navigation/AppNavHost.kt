@@ -27,7 +27,7 @@ fun AppNavHost(
             SplashScreen(navController = navController)
         }
         composable(ROUTE_ONBOARDING) {
-            OnboardingScreen(navController = navController)
+            OnboardingScreen(navController = navController, modifier = modifier)
         }
         composable(ROUTE_LOGIN) {
             LoginScreen(

@@ -1,4 +1,9 @@
 package com.stiles.young.ui.theme.navigation
 
-interface ROUTES {
+enum class ROUTES {
+    Login,
+    ForgotPassword,
+    Register,
+    Onboarding,
+    Home
 }

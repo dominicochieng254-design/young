@@ -12,26 +12,28 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.stiles.young.navigation.AppNavHost
 import com.stiles.young.ui.theme.YoungTheme
 import com.stiles.young.Greeting as Greeting1
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            YoungTheme{
-                AppNavHost()
+            YoungTheme {
+                val navController = rememberNavController()
+                // Use AppNavHost as the primary navigation host
+                AppNavHost(navController = navController)
             }
         }
     }
 }
 
-
-
 @Composable
-fun MyApp(){
+fun MyApp() {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Greeting1(
             name = "Android",
@@ -42,7 +44,7 @@ fun MyApp(){
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column{
+    Column {
         Text(
             text = "Hello $name!",
             modifier = modifier
@@ -52,13 +54,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = modifier
         )
     }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-YoungTheme {
+    YoungTheme {
         Greeting1("Android")
     }
 }
